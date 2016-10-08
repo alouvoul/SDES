@@ -1,12 +1,15 @@
 
 package sdes;
 
-import java.util.Arrays;
-
 
 /**
  *
- * @author alouvoul
+ * 
+ * 
+ * Aristotle University
+ * 
+ * @author Louvoulinas Anastasios
+ * @since 8/10/2016
  */
 public class SDES{
 
