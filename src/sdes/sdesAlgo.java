@@ -14,7 +14,7 @@ public class sdesAlgo {
         char[] key2 = new char[8];
         char[] encryptedMessage;
         char[] decryptedMessage;
-        
+        System.out.println("main-->"+ Arrays.toString(plaintext));
         key1 = keyManagement(key, true);    //first key declared with true
         key2 = keyManagement(key, false);
         
@@ -88,7 +88,8 @@ public class sdesAlgo {
         int length = plaintext.length;
         char[] left = Arrays.copyOfRange(plaintext, 0, length/2-1);
         char[] right = Arrays.copyOfRange(plaintext, length/2-1, length);
-    
+        //System.arraycopy(left, 0, plaintext, 0, left.length/2-1);
+        //System.out.println("function debug-->"+ Arrays.toString(plaintext));
         char[] FText;
         FText = F(right, key);
         
@@ -111,13 +112,15 @@ public class sdesAlgo {
         char[] p0 = new char[2];
         char[] p1 = new char[2];
         
-        p0[0] =  ep[0];
-        p0[1] =  ep[3];
+        p0[0] =  temp[0];
+        p0[1] =  temp[3];
         
-        p1[0] =  ep[1];
-        p1[1] =  ep[2];
+        p1[0] =  temp[1];
+        p1[1] =  temp[2];
+System.out.println("p1-->"+ Arrays.toString(right));//=====================
         int row, column;
         String text = new String(p0);
+System.out.println("text-->"+text);
         String text1 = new String(p1);
         row = Integer.parseInt(text, 2);
         column = Integer.parseInt(text1, 2);
@@ -130,7 +133,7 @@ public class sdesAlgo {
         finalLeftPart[0] = temp1[0];
         finalLeftPart[1] = temp1[1];
         finalLeftPart[2] = temp2[0];
-        finalLeftPart[3] = temp1[1];
+        finalLeftPart[3] = temp2[1];
         
                
         return finalLeftPart;

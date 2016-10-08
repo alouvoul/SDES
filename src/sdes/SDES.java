@@ -14,7 +14,8 @@ public class SDES{
     public static void main(String[] args) {
         char[] plaintext = {1,0,1,0,1,0,1,0};
         char[] key = {1,1,1,0,0,0,1,1,0,0};
-        new sdesAlgo(true, plaintext, key);
+        
+        sdesAlgo sdes = new sdesAlgo(true, plaintext, key);
     }
     
 }
