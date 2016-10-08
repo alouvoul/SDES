@@ -10,11 +10,11 @@ import java.util.Arrays;
 public class sdesAlgo {
 
     public sdesAlgo(boolean encrypt, char[] plaintext, char[] key) {
-        char[] key1 = new char[8];
-        char[] key2 = new char[8];
+        char[] key1;
+        char[] key2;
         char[] encryptedMessage;
         char[] decryptedMessage;
-        System.out.println("main-->"+ Arrays.toString(plaintext));
+        System.out.println(plaintext[0]);
         key1 = keyManagement(key, true);    //first key declared with true
         key2 = keyManagement(key, false);
         
@@ -24,13 +24,13 @@ public class sdesAlgo {
             char[] sw = SW(f);
             f = function(sw, key2);
             encryptedMessage = IIP(f);
-//==========================================================
+//==========================================================//
             ip = IP(encryptedMessage);
             f = function(ip, key2);
             sw = SW(f);
             f = function(sw, key1);
             decryptedMessage = IIP(f);
-            System.out.println("Array is: "+ Arrays.toString(decryptedMessage));
+            System.out.println("Array is: " + Arrays.toString(decryptedMessage));
         
     }
     
@@ -86,10 +86,16 @@ public class sdesAlgo {
     
     private char[] function(char[] plaintext, char[] key){
         int length = plaintext.length;
-        char[] left = Arrays.copyOfRange(plaintext, 0, length/2-1);
-        char[] right = Arrays.copyOfRange(plaintext, length/2-1, length);
-        //System.arraycopy(left, 0, plaintext, 0, left.length/2-1);
-        //System.out.println("function debug-->"+ Arrays.toString(plaintext));
+        char[] left = new char[length/2];//Arrays.copyOfRange(plaintext, 0, length/2-1);
+        char[] right = new char[length/2];//= Arrays.copyOfRange(plaintext, length/2, length);
+        
+        //---Initialize left and right array-------//
+        for (int i = 0; i < length/2; i++) {
+            left[i] = plaintext[i];
+            right[i] = plaintext[i+length/2];
+        }
+        
+System.out.println("------"+Arrays.toString(right));
         char[] FText;
         FText = F(right, key);
         
@@ -117,11 +123,18 @@ public class sdesAlgo {
         
         p1[0] =  temp[1];
         p1[1] =  temp[2];
-System.out.println("p1-->"+ Arrays.toString(right));//=====================
+System.out.println("p1-->"+ Arrays.toString(temp));//=====================
+
         int row, column;
-        String text = new String(p0);
-System.out.println("text-->"+text);
-        String text1 = new String(p1);
+        
+        String text = "";
+        String text1 = "";
+        for (int i = 0; i < 2; i++) {
+            text = text+p0[i];
+            text1 = text1+p1[i];
+        }
+
+System.out.println("text---->"+text);
         row = Integer.parseInt(text, 2);
         column = Integer.parseInt(text1, 2);
         
@@ -144,8 +157,14 @@ System.out.println("text-->"+text);
         char[] convertedLeft = new char[left.length];
         
         for (int i = 0; i < left.length; i++) {
-            convertedLeft[i] = (char) (left[i] ^ right[i]);
+            if(left[i] == right[i]){
+                convertedLeft[i] = '0';
+            }
+            else{
+                convertedLeft[i] = '1';
+            }
         }
+        System.out.println("XOR------>" + Arrays.toString(convertedLeft));
         return convertedLeft;
     }
     
@@ -178,9 +197,9 @@ System.out.println("text-->"+text);
     
     private char[] SW(char[] plaintext){
         char[] temp = new char[8];
-        for (int i = 0; i < temp.length; i++) {
-            temp[i] = plaintext[i+temp.length];
-            temp[i+temp.length] = plaintext[i];
+        for (int i = 0; i < temp.length/2; i++) {
+            temp[i] = plaintext[i+temp.length/2];
+            temp[i+temp.length/2] = plaintext[i];
         }
         
         return temp;
