@@ -13,32 +13,11 @@ import java.util.Arrays;
  */
 public class sdesAlgo {
 
-    public sdesAlgo(boolean encrypt, char[] plaintext, char[] key) {
-        char[] key1;
-        char[] key2;
-        char[] encryptedMessage;
-        char[] decryptedMessage;
-        System.out.println(plaintext[0]);
-        key1 = keyManagement(key, true);    //first key declared with true
-        key2 = keyManagement(key, false);
-        
-        //if(encrypt){
-            char[] ip = IP(plaintext);
-            char[] f = function(ip, key1);
-            char[] sw = SW(f);
-            f = function(sw, key2);
-            encryptedMessage = IIP(f);
-//==========================================================//
-            ip = IP(encryptedMessage);
-            f = function(ip, key2);
-            sw = SW(f);
-            f = function(sw, key1);
-            decryptedMessage = IIP(f);
-            System.out.println("Array is: " + Arrays.toString(decryptedMessage));
-        
+    public sdesAlgo() {
+
     }
     
-    private char[] IP(char[] plaintext){
+    public char[] IP(char[] plaintext){
         char[] permutation = new char[8];
         
         permutation[0] = plaintext[1];
@@ -53,7 +32,7 @@ public class sdesAlgo {
         return permutation;
     }
     
-    private char[] IIP(char[] plaintext){
+    public char[] IIP(char[] plaintext){
         char[] permutation = new char[8];
         
         permutation[0] = plaintext[3];
@@ -73,7 +52,7 @@ public class sdesAlgo {
      * @param plaintext 4 digit code
      * @return 
      */
-    private char[] EP(char[] plaintext){
+    public char[] EP(char[] plaintext){
         char[] permutation = new char[8];
         
         permutation[0] = plaintext[3];
@@ -88,7 +67,13 @@ public class sdesAlgo {
         return permutation;
     }
     
-    private char[] function(char[] plaintext, char[] key){
+    /**
+     * 
+     * @param plaintext
+     * @param key
+     * @return 
+     */
+    public char[] function(char[] plaintext, char[] key){
         int length = plaintext.length;
         char[] left = new char[length/2];//Arrays.copyOfRange(plaintext, 0, length/2-1);
         char[] right = new char[length/2];//= Arrays.copyOfRange(plaintext, length/2, length);
@@ -112,7 +97,13 @@ System.out.println("------"+Arrays.toString(right));
         return plaintext;
     }
     
-    private char[] F(char[] right, char[] key){
+    /**
+     * 
+     * @param right
+     * @param key
+     * @return 
+     */
+    public char[] F(char[] right, char[] key){
         final int[][] S0 = { {1,0,3,2} , {3,2,1,0} , {0,2,1,3} , {3,1,3,2} } ;
         final int[][] S1 = { {0,1,2,3}, {2,0,1,3}, {3,0,1,0}, {2,1,0,3}} ;
         
@@ -127,7 +118,7 @@ System.out.println("------"+Arrays.toString(right));
         
         p1[0] =  temp[1];
         p1[1] =  temp[2];
-System.out.println("p1-->"+ Arrays.toString(temp));//=====================
+        System.out.println("p1-->"+ Arrays.toString(temp));//=====================
 
         int row, column;
         
@@ -138,7 +129,7 @@ System.out.println("p1-->"+ Arrays.toString(temp));//=====================
             text1 = text1+p1[i];
         }
 
-System.out.println("text---->"+text);
+        System.out.println("text---->"+text);
         row = Integer.parseInt(text, 2);
         column = Integer.parseInt(text1, 2);
         
@@ -156,7 +147,13 @@ System.out.println("text---->"+text);
         return finalLeftPart;
     }
     
-    private char[] XOR(char[] left, char[] right){
+    /**
+     * 
+     * @param left
+     * @param right
+     * @return 
+     */
+    public char[] XOR(char[] left, char[] right){
         
         char[] convertedLeft = new char[left.length];
         
@@ -172,7 +169,14 @@ System.out.println("text---->"+text);
         return convertedLeft;
     }
     
-    private char[] convertToBinary(int row, int column, int[][] s){
+    /**
+     * 
+     * @param row
+     * @param column
+     * @param s
+     * @return 
+     */
+    public char[] convertToBinary(int row, int column, int[][] s){
 
         char[] leftArray = new char[4];
         
@@ -199,7 +203,12 @@ System.out.println("text---->"+text);
         
     }
     
-    private char[] SW(char[] plaintext){
+    /**
+     * 
+     * @param plaintext
+     * @return 
+     */
+    public char[] SW(char[] plaintext){
         char[] temp = new char[8];
         for (int i = 0; i < temp.length/2; i++) {
             temp[i] = plaintext[i+temp.length/2];
@@ -209,7 +218,13 @@ System.out.println("text---->"+text);
         return temp;
     }
     
-    private char[] keyManagement(char[] key, boolean first){
+    /**
+     * 
+     * @param key
+     * @param first
+     * @return 
+     */
+    public char[] keyManagement(char[] key, boolean first){
         char[] keyTemp;
         
         if(first){
@@ -227,7 +242,12 @@ System.out.println("text---->"+text);
         return keyTemp;
     }
     
-    private char[] P10(char[] key){
+    /**
+     * 
+     * @param key
+     * @return 
+     */
+    public char[] P10(char[] key){
         char[] permutation = new char[10];
         
         permutation[0] = key[2];
@@ -244,7 +264,12 @@ System.out.println("text---->"+text);
         return permutation;
     }
     
-    private char[] P8(char[] key){
+    /**
+     * 
+     * @param key
+     * @return 
+     */
+    public char[] P8(char[] key){
         char[] permutation = new char[8];
         
         permutation[0] = key[5];
@@ -258,8 +283,12 @@ System.out.println("text---->"+text);
         
         return permutation;
     }
-        
-    private char[] Shift(char[] key){
+    /**
+     * 
+     * @param key
+     * @return 
+     */
+    public char[] Shift(char[] key){
         char[] shifted = new char[key.length];
         
         for (int i = 0; i < key.length-1; i++) {
