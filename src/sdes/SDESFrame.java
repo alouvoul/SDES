@@ -181,7 +181,11 @@ public class SDESFrame extends javax.swing.JFrame {
         function2Text.setText(Arrays.toString(f));
         
         encryptedMessage = sdes.IIP(f);
-        encryptedText.setText(Arrays.toString(encryptedMessage));
+         String temp = new String();
+        for (int i = 0; i < encryptedMessage.length; i++) {
+            temp += "" + encryptedMessage[i];
+        }
+        encryptedText.setText(temp);
     }//GEN-LAST:event_encryptButtonActionPerformed
 
     private void decryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decryptButtonActionPerformed
@@ -202,7 +206,11 @@ public class SDESFrame extends javax.swing.JFrame {
         function2Text.setText(Arrays.toString(f));
         
         decryptedMessage = sdes.IIP(f);
-        plainText.setText(Arrays.toString(decryptedMessage));
+        String temp = new String();
+        for (int i = 0; i < decryptedMessage.length; i++) {
+            temp += "" + decryptedMessage[i];
+        }
+        plainText.setText(temp);
         System.out.println("Array is: " + Arrays.toString(decryptedMessage));
     }//GEN-LAST:event_decryptButtonActionPerformed
 
