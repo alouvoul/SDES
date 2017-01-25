@@ -17,6 +17,11 @@ public class sdesAlgo {
 
     }
     
+    /**
+     * Method to make Initial permutation
+     * @param plaintext
+     * @return 
+     */
     public char[] IP(char[] plaintext){
         char[] permutation = new char[8];
         
@@ -32,6 +37,11 @@ public class sdesAlgo {
         return permutation;
     }
     
+    /**
+     * Method to make Inverse Initial permutation
+     * @param plaintext
+     * @return 
+     */
     public char[] IIP(char[] plaintext){
         char[] permutation = new char[8];
         
@@ -48,6 +58,7 @@ public class sdesAlgo {
     }
     
     /**
+     * Method to make Expansion permutation
      * 
      * @param plaintext 4 digit code
      * @return 
@@ -68,6 +79,7 @@ public class sdesAlgo {
     }
     
     /**
+     * Implements the function f that need for sdes algorithm
      * 
      * @param plaintext
      * @param key
@@ -75,8 +87,8 @@ public class sdesAlgo {
      */
     public char[] function(char[] plaintext, char[] key){
         int length = plaintext.length;
-        char[] left = new char[length/2];//Arrays.copyOfRange(plaintext, 0, length/2-1);
-        char[] right = new char[length/2];//= Arrays.copyOfRange(plaintext, length/2, length);
+        char[] left = new char[length/2];
+        char[] right = new char[length/2];
         
         //---Initialize left and right array-------//
         for (int i = 0; i < length/2; i++) {
@@ -84,7 +96,6 @@ public class sdesAlgo {
             right[i] = plaintext[i+length/2];
         }
         
-System.out.println("------"+Arrays.toString(right));
         char[] FText;
         FText = F(right, key);
         
@@ -118,7 +129,6 @@ System.out.println("------"+Arrays.toString(right));
         
         p1[0] =  temp[1];
         p1[1] =  temp[2];
-        System.out.println("p1-->"+ Arrays.toString(temp));//=====================
 
         int row, column;
         
@@ -148,7 +158,7 @@ System.out.println("------"+Arrays.toString(right));
     }
     
     /**
-     * 
+     * Xor function that needed from sunction to calculate left part of output.
      * @param left
      * @param right
      * @return 
@@ -170,6 +180,7 @@ System.out.println("------"+Arrays.toString(right));
     }
     
     /**
+     * 
      * 
      * @param row
      * @param column
@@ -204,6 +215,7 @@ System.out.println("------"+Arrays.toString(right));
     }
     
     /**
+     * Method to implement swithcing method.
      * 
      * @param plaintext
      * @return 
@@ -219,8 +231,8 @@ System.out.println("------"+Arrays.toString(right));
     }
     
     /**
-     * 
-     * @param key
+     * Manages which key need to be calculated.
+     * @param key true for first key false for second key 
      * @param first
      * @return 
      */
@@ -284,6 +296,7 @@ System.out.println("------"+Arrays.toString(right));
         return permutation;
     }
     /**
+     * Method to shift the keys.
      * 
      * @param key
      * @return 

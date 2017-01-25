@@ -8,7 +8,8 @@ package sdes;
 import java.util.Arrays;
 
 /**
- *
+ * Class for GUI component of the programm.
+ * 
  * @author AnastasiosLouvoulinas
  * @version 1.0
  */
@@ -168,18 +169,33 @@ public class SDESFrame extends javax.swing.JFrame {
         char[] key1 = sdes.keyManagement(keyText.getText().toCharArray(), true);    //first key declared with true
         char[] key2 = sdes.keyManagement(keyText.getText().toCharArray(), false);
         
+        /*
+            Calculates the  IP and set it to label
+        */
         char[] ip = sdes.IP(plainText.getText().toCharArray());
         ipText.setText(Arrays.toString(ip));
         
+        /*
+            Calculates the function with key1 result and set it to label
+        */
         char[] f = sdes.function(ip, key1);
         function1Text.setText(Arrays.toString(f));
         
+        /*
+         * Calculates the swap and set it to label
+         */
         char[] sw = sdes.SW(f);
         swText.setText(Arrays.toString(sw));
         
+        /*
+            Calculates the function with key2 result and set it to label
+        */
         f = sdes.function(sw, key2);
         function2Text.setText(Arrays.toString(f));
         
+        /*
+            Calculates the encrypted message result and set it to label
+        */
         encryptedMessage = sdes.IIP(f);
          String temp = new String();
         for (int i = 0; i < encryptedMessage.length; i++) {
